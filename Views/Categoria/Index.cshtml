@@ -1,1 +1,51 @@
-﻿<h1>Lista de Categorias</h1>
+﻿@using WebProjectCourse.Models;
+@model List<Categoria>
+<div class="container">
+        <div class="row pt-4 pb-3">
+            <div class="col-6">
+                <h2 class="text-primary">
+                    Lista de Categorias
+                </h2>
+            </div>
+            <div class="col-6">
+            <a asp-controller="Categoria" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i>Criar nova categoria
+                </a>
+            </div>
+        </div>
+        
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Categoria
+            </th>
+            <th>
+                Ordem Display
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var obj in Model.OrderBy(u=>u.OrdemDisplay))
+        {
+            <tr>
+                <td>@obj.Nome</td>
+                <td>
+                    @obj.OrdemDisplay
+                </td>
+                <td>
+                    <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Categoria" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-square"></i> Alterar
+                        </a>
+                            <a asp-controller="Categoria" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-danger mx-2">
+                                <i class="bi bi-trash-fill"></i> Apagar
+                            </a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+</div>
