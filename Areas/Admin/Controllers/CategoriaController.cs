@@ -1,19 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebProjectCourse.Data;
 using WebProjectCourse.Models;
+using WebProjectCourse.Repository.IRepository;
 
-namespace WebProjectCourse.Controllers;
+namespace WebProjectCourse.Areas.Admin.Controllers;
 
+[Area("Admin")]
 public class CategoriaController : Controller
 {
-    private readonly AppDbContext _db;
-    public CategoriaController(AppDbContext db)
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CategoriaController(IUnitOfWork unitOfWork)
     {
-        _db = db;
+        _unitOfWork = unitOfWork;
     }
     public IActionResult Index()
     {
-        List<Categoria> objListCategoria = _db.Categorias.ToList();
+        List<Categoria> objListCategoria = _unitOfWork.Categoria.GetAll().ToList();
         return View(objListCategoria);
     }
 
@@ -25,10 +28,10 @@ public class CategoriaController : Controller
     [HttpPost]
     public IActionResult Create(Categoria obj)
     {
-        if(ModelState.IsValid)
+        if (ModelState.IsValid)
         {
-            _db.Categorias.Add(obj);
-            _db.SaveChanges();
+            _unitOfWork.Categoria.Add(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Categoria criada com sucesso.";
             return RedirectToAction("Index");
         }
@@ -41,7 +44,7 @@ public class CategoriaController : Controller
         {
             return NotFound();
         }
-        Categoria? categoriaFromDb = _db.Categorias.Find(id);
+        Categoria? categoriaFromDb = _unitOfWork.Categoria.Get(u => u.Id == id);
         if (categoriaFromDb == null)
         {
             return NotFound();
@@ -53,8 +56,8 @@ public class CategoriaController : Controller
     {
         if (ModelState.IsValid)
         {
-            _db.Categorias.Update(obj);
-            _db.SaveChanges();
+            _unitOfWork.Categoria.Update(obj);
+            _unitOfWork.Save();
             TempData["success"] = "Categoria alterada com sucesso.";
             return RedirectToAction("Index");
         }
@@ -67,7 +70,7 @@ public class CategoriaController : Controller
         {
             return NotFound();
         }
-        Categoria? categoriaFromDb = _db.Categorias.Find(id);
+        Categoria? categoriaFromDb = _unitOfWork.Categoria.Get(u => u.Id == id);
         if (categoriaFromDb == null)
         {
             return NotFound();
@@ -77,13 +80,13 @@ public class CategoriaController : Controller
     [HttpPost, ActionName("Delete")]
     public IActionResult DeletePOST(int? id)
     {
-        Categoria obj = _db.Categorias.Find(id);
+        Categoria obj = _unitOfWork.Categoria.Get(u => u.Id == id);
         if (id == null)
         {
             return NotFound();
         }
-        _db.Categorias.Remove(obj);
-        _db.SaveChanges();
+        _unitOfWork.Categoria.Remove(obj);
+        _unitOfWork.Save();
         TempData["success"] = "Categoria apagada com sucesso.";
         return RedirectToAction("Index");
     }
