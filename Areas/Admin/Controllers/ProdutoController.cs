@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Net.Http.Headers;
 using WebProjectCourse.Models;
+using WebProjectCourse.Models.ViewModel;
 using WebProjectCourse.Repository.IRepository;
 
 namespace WebProjectCourse.Areas.Admin.Controllers;
@@ -21,20 +24,41 @@ public class ProdutoController : Controller
 
     public IActionResult Create()
     {
-        return View();
+        ProdutoVM produtoVM = new()
+        {
+            CategoriaList = _unitOfWork.Categoria
+            .GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Nome,
+                Value = u.Id.ToString()
+            }),
+            Produto = new Produto()
+        };
+        return View(produtoVM);
     }
 
     [HttpPost]
-    public IActionResult Create(Produto obj)
+    public IActionResult Create(ProdutoVM productVM)
     {
         if (ModelState.IsValid)
         {
-            _unitOfWork.Produto.Add(obj);
+            _unitOfWork.Produto.Add(productVM.Produto);
             _unitOfWork.Save();
             TempData["success"] = "Produto criado com sucesso.";
             return RedirectToAction("Index");
         }
-        return View();
+        else
+        {
+            productVM.CategoriaList = _unitOfWork.Categoria
+                    .GetAll().Select(u => new SelectListItem
+                    {
+                        Text = u.Nome,
+                        Value = u.Id.ToString()
+                    });
+            };
+            return View(productVM);
+        }
+
     }
 
     public IActionResult Edit(int? id)

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebProjectCourse.Models;
 
@@ -35,4 +37,13 @@ public class Produto
     [Display(Name = "Lista de preço para 100+")]
     [Range(1, 1000)]
     public double Preco100 { get; set; }
+
+    [Display(Name = "Categoria")]
+    public int CategoriaId { get; set; }
+    [ForeignKey("CategoriaId")]
+    [ValidateNever]
+    public Produto Categoria { get; set; }
+
+    [ValidateNever]
+    public string UrlImagem { get; set; }
 }

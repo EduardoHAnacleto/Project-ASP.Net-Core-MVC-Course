@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebProjectCourse.Data;
 
@@ -10,9 +11,11 @@ using WebProjectCourse.Data;
 namespace WebProjectCourse.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230702214023_addForeignKeyParaCategoria")]
+    partial class addForeignKeyParaCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,10 +105,6 @@ namespace WebProjectCourse.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("UrlImagem")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
@@ -124,8 +123,7 @@ namespace WebProjectCourse.Migrations
                             Preco = 30.0,
                             Preco100 = 20.0,
                             Preco50 = 25.0,
-                            Titulo = "The Continental",
-                            UrlImagem = ""
+                            Titulo = "The Continental"
                         },
                         new
                         {
@@ -138,8 +136,7 @@ namespace WebProjectCourse.Migrations
                             Preco = 15.0,
                             Preco100 = 8.0,
                             Preco50 = 10.0,
-                            Titulo = "Star Wars Tale",
-                            UrlImagem = ""
+                            Titulo = "Star Wars Tale"
                         },
                         new
                         {
@@ -152,8 +149,7 @@ namespace WebProjectCourse.Migrations
                             Preco = 30.0,
                             Preco100 = 24.0,
                             Preco50 = 28.0,
-                            Titulo = "Segunda Guerra Mundial",
-                            UrlImagem = ""
+                            Titulo = "Segunda Guerra Mundial"
                         },
                         new
                         {
@@ -166,8 +162,7 @@ namespace WebProjectCourse.Migrations
                             Preco = 30.0,
                             Preco100 = 20.0,
                             Preco50 = 25.0,
-                            Titulo = "Imperio Romano",
-                            UrlImagem = ""
+                            Titulo = "Imperio Romano"
                         },
                         new
                         {
@@ -180,8 +175,7 @@ namespace WebProjectCourse.Migrations
                             Preco = 40.0,
                             Preco100 = 30.0,
                             Preco50 = 35.0,
-                            Titulo = "WarHammer 40000",
-                            UrlImagem = ""
+                            Titulo = "WarHammer 40000"
                         });
                 });
 
