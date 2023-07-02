@@ -1,0 +1,71 @@
+﻿@using WebProjectCourse.Models;
+@model Produto
+
+<form method="post">
+    <input asp-for="Id" hidden />
+    <div class="border p-3 mt-4">
+        <div class="row pb-2>"
+            <h2 class="text-primary">Alterar Produto</h2>
+            <hr/>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Titulo class="p-0"></label>
+            <input asp-for=Titulo class="form-control" />
+            <span asp-validation-for="Titulo" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Descricao class="p-0"></label>
+            <input asp-for=Descricao class="form-control" />
+            <span asp-validation-for="Descricao" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Autor class="p-0"></label>
+            <input asp-for=Autor class="form-control" />
+            <span asp-validation-for="Autor" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=ISBN class="p-0"></label>
+            <input asp-for=ISBN class="form-control" />
+            <span asp-validation-for="ISBN" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=ListaPreco class="p-0"></label>
+            <input asp-for=ListaPreco class="form-control" />
+            <span asp-validation-for="ListaPreco" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Preco class="p-0"></label>
+            <input asp-for=Preco class="form-control" />
+            <span asp-validation-for="Preco" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Preco50 class="p-0"></label>
+            <input asp-for=Preco50 class="form-control" />
+            <span asp-validation-for="Preco50" class="text-danger"></span>
+        </div>
+        <div class="mb-3 row p-1">
+            <label asp-for=Preco100 class="p-0"></label>
+            <input asp-for=Preco100 class="form-control" />
+            <span asp-validation-for="Preco100" class="text-danger"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-6" col-md-3>
+                <button type="submit" class="btn btn-primary" form-control">Alterar</button>
+            </div>
+            <div class="col-6 col-md-3">
+                <a asp-controller="Produto" asp-action="Index" class="btn btn-outline-secondary border form-control">
+                    Voltar a lista
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+</form>
+
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
